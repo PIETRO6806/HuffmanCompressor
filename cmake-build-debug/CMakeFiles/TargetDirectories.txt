@@ -1,0 +1,3 @@
+C:/Users/Pietro/Desktop/HuffmanCompressor/cmake-build-debug/CMakeFiles/HuffmanCompressor.dir
+C:/Users/Pietro/Desktop/HuffmanCompressor/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Pietro/Desktop/HuffmanCompressor/cmake-build-debug/CMakeFiles/rebuild_cache.dir

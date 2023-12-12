@@ -1,0 +1,14 @@
+# ninja log v5
+29	1997	7240388445274511	CMakeFiles/HuffmanCompressor.dir/NoHuffman.cpp.obj	80e34487f0123984
+110	2188	7240388447133460	CMakeFiles/HuffmanCompressor.dir/ArvoreBinaria.cpp.obj	824615094cd25ac2
+154	2253	7240388447833102	CMakeFiles/HuffmanCompressor.dir/CodigoHuffman.cpp.obj	cdd22dd708ca7591
+49	2575	7240388451071251	CMakeFiles/HuffmanCompressor.dir/FilaPriorizada.cpp.obj	5a58e9b1334c2bbf
+2	2618	7240388451491116	CMakeFiles/HuffmanCompressor.dir/main.cpp.obj	9747ece98758e2e4
+71	2747	7240388452750381	CMakeFiles/HuffmanCompressor.dir/Huffman.cpp.obj	a896749a7ac26479
+2750	3532	7240388460028941	HuffmanCompressor.exe	73d9c8001020ed6e
+21	2167	7240390045816541	CMakeFiles/HuffmanCompressor.dir/main.cpp.obj	9747ece98758e2e4
+2170	2860	7240390052449556	HuffmanCompressor.exe	73d9c8001020ed6e
+15	1901	7240390568433563	CMakeFiles/HuffmanCompressor.dir/main.cpp.obj	9747ece98758e2e4
+1904	2585	7240390574937840	HuffmanCompressor.exe	73d9c8001020ed6e
+15	1977	7240391578140601	CMakeFiles/HuffmanCompressor.dir/main.cpp.obj	9747ece98758e2e4
+1980	2741	7240391585346492	HuffmanCompressor.exe	73d9c8001020ed6e
