@@ -2,7 +2,10 @@
 // Created by Pietro on 11/12/2023.
 //
 
+#include <iostream>
 #include "ArvoreBinaria.h"
+
+ArvoreBinaria::ArvoreBinaria() : raiz(nullptr) {}
 
 ArvoreBinaria::ArvoreBinaria(FilaPriorizada& fila) {
     ConstruirArvore(fila);
@@ -45,4 +48,30 @@ void ArvoreBinaria::DeletarArvore(NoHuffman* node) {
 ArvoreBinaria::~ArvoreBinaria() {
     // Call the helper function to delete the entire binary tree
     DeletarArvore(raiz);
+}
+
+// Function to print the binary tree using in-order traversal
+void ArvoreBinaria::PrintTreeHelper(const NoHuffman* node, int depth) const {
+    if (node == nullptr) {
+        return;
+    }
+
+    // Increase indentation based on the depth of the node
+    for (int i = 0; i < depth; ++i) {
+        std::cout << "      ";
+    }
+
+    // Print node information
+    std::cout << "Frequency:" << node->getFrequencia() << " Data:" << node->getInfo() << std::endl;
+
+    // Recursively print left and right subtrees
+    PrintTreeHelper(node->getEsquerda(), depth + 1);
+    PrintTreeHelper(node->getDireita(), depth + 1);
+}
+
+// Function to print the binary tree
+void ArvoreBinaria::ImprimirArvore() const {
+    std::cout << "Binary Tree:" << std::endl;
+    PrintTreeHelper(raiz, 0);
+    std::cout << std::endl;
 }

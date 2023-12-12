@@ -3,6 +3,7 @@
 //
 
 #include <stdexcept>
+#include <iostream>
 #include "FilaPriorizada.h"
 
 FilaPriorizada::FilaPriorizada() : quantosNos(0) {}
@@ -46,4 +47,27 @@ std::list<NoHuffman*> FilaPriorizada::Listar() const {
     }
 
     return lista;
+}
+
+void FilaPriorizada::ImprimirFilaPriorizada() const {
+    // Create a copy of the priority queue (so it doesn't modify the original)
+    std::priority_queue<NoHuffman*, std::vector<NoHuffman*>, CompareNodes> tempQueue = filaPriorizada;
+
+    std::cout << "Fila Priorizada:\n";
+
+    while (!tempQueue.empty()) {
+        NoHuffman* node = tempQueue.top();
+        std::cout << "Frequencia: " << node->getFrequencia()
+                  << " | Info: " << node->getInfo() << "\n";
+        tempQueue.pop();
+    }
+
+    std::cout << "Fim da Fila Priorizada\n";
+}
+
+FilaPriorizada::~FilaPriorizada() {
+    while (!filaPriorizada.empty()) {
+        delete filaPriorizada.top();
+        filaPriorizada.pop();
+    }
 }

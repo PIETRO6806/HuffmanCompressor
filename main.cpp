@@ -1,20 +1,24 @@
 #include <iostream>
 #include "Huffman.h"
-  \
+
 int main() {
-    Huffman huffman(R"(C:\Users\Pietro\Desktop\HuffmanCompressor\png.png)", "output.txt");
+    Huffman huffman(R"(C:\Users\Pietro\Desktop\HuffmanCompressor\txt.txt)", "output.txt");
 
-    try {
-        huffman.criarFilaPriorizada();
+    // Create the priority queue
+    huffman.criarFilaPriorizada();
 
-        // List and print elements in filaPriorizada
-        std::list<NoHuffman*> elements = huffman.getFilaPriorizada().Listar();
-        for (const auto& node : elements) {
-            std::cout << "Character: " << node->getInfo() << ", Frequency: " << node->getFrequencia() << std::endl;
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+    huffman.getFilaPriorizada().ImprimirFilaPriorizada();
+
+    // Create the Huffman tree
+    huffman.criarArvoreBinaria();
+
+    // Print the Huffman tree
+    huffman.getArvoreBinaria().ImprimirArvore();
+
+
+    // Calculate Huffman codes
+    huffman.calcularHuffmanCodigos();
+
 
     return 0;
 }

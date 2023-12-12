@@ -35,7 +35,7 @@ public:
     //setters
     void setInfo(char);
     void setFrequencia(int);
-    void setCodigo(std::string);
+    void setCodigo(const std::string&);
     void setEsquerda(NoHuffman*);
     void setDireita(NoHuffman*);
 

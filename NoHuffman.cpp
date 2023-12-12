@@ -4,6 +4,8 @@
 
 #include "NoHuffman.h"
 
+#include <utility>
+
 NoHuffman::NoHuffman() : info('\0'), frequencia(0), esquerda(nullptr), direita(nullptr){}
 
 NoHuffman::NoHuffman(char novoInfo, int novaFrequencia) : info(novoInfo), frequencia(novaFrequencia), esquerda(nullptr), direita(nullptr){}
@@ -38,7 +40,7 @@ void NoHuffman::setFrequencia(int novaFrequencia) {
     frequencia = novaFrequencia;
 }
 
-void NoHuffman::setCodigo(std::string novoCodigo) {
+void NoHuffman::setCodigo(const std::string& novoCodigo) {
     codigo = novoCodigo;
 }
 

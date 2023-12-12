@@ -34,6 +34,9 @@ public:
     void Enfileirar(const NoHuffman&);
     NoHuffman* Retirar();
     bool isEmpty() const;
+    void ImprimirFilaPriorizada() const;
+
+    ~FilaPriorizada();
 };
 
 

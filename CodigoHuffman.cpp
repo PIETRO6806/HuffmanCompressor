@@ -5,12 +5,10 @@
 #include "CodigoHuffman.h"
 
 void CodigoHuffman::setCodigos(NoHuffman* no, std::string codigo) {
-    if (no->getEsquerda() == nullptr && no->getDireita() == nullptr)
-    {
+    if (no->getEsquerda() == nullptr && no->getDireita() == nullptr) {
         no->setCodigo(codigo);
     }
-    else
-    {
+    else {
         setCodigos(no->getEsquerda(), codigo + '0');
         setCodigos(no->getDireita(), codigo + '1');
     }
