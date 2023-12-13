@@ -9,6 +9,7 @@
 #include <vector>
 #include <queue>
 #include <list>
+#include <map>
 #include "NoHuffman.h"
 
 class FilaPriorizada {
@@ -27,6 +28,12 @@ private:
 public:
     //default constructor
     FilaPriorizada();
+
+    // Copy constructor
+    FilaPriorizada(const FilaPriorizada& other);
+
+    // Assignment operator
+    FilaPriorizada& operator=(const FilaPriorizada& other);
 
     int getQuantosNos() const;
     std::list<NoHuffman*> Listar() const;

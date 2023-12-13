@@ -13,7 +13,13 @@ int FilaPriorizada::getQuantosNos() const{
 }
 
 void FilaPriorizada::Enfileirar(const NoHuffman& novoNo) {
-    filaPriorizada.push(new NoHuffman(novoNo));
+    // Create a copy of the NoHuffman object to avoid memory issues
+    NoHuffman* newNode = new NoHuffman(novoNo);
+
+    // Add the new node to the priority queue
+    filaPriorizada.push(newNode);
+
+    // Increment the count of nodes
     quantosNos++;
 }
 
@@ -70,4 +76,41 @@ FilaPriorizada::~FilaPriorizada() {
         delete filaPriorizada.top();
         filaPriorizada.pop();
     }
+}
+
+// Copy constructor
+FilaPriorizada::FilaPriorizada(const FilaPriorizada& other) : quantosNos(other.quantosNos) {
+
+    // Copy priority queue
+    std::priority_queue<NoHuffman*, std::vector<NoHuffman*>, CompareNodes> tempQueue = other.filaPriorizada;
+
+    while (!tempQueue.empty()) {
+        NoHuffman* node = tempQueue.top();
+        this->filaPriorizada.push(new NoHuffman(*node));  // Create a copy of NoHuffman and push it to the new queue
+        tempQueue.pop();
+    }
+}
+
+// Assignment operator
+FilaPriorizada& FilaPriorizada::operator=(const FilaPriorizada& other) {
+    if (this != &other) {
+        // Clear the current contents
+        while (!this->filaPriorizada.empty()) {
+            delete this->filaPriorizada.top();
+            this->filaPriorizada.pop();
+        }
+
+        // Copy quantosNos
+        this->quantosNos = other.quantosNos;
+
+        // Copy priority queue
+        std::priority_queue<NoHuffman*, std::vector<NoHuffman*>, CompareNodes> tempQueue = other.filaPriorizada;
+
+        while (!tempQueue.empty()) {
+            NoHuffman* node = tempQueue.top();
+            this->filaPriorizada.push(new NoHuffman(*node));  // Create a copy of NoHuffman and push it to the new queue
+            tempQueue.pop();
+        }
+    }
+    return *this;
 }

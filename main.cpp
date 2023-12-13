@@ -8,6 +8,15 @@ int main() {
     // Create the priority queue
     huffman.criarFilaPriorizada();
 
+    // Get the frequencies vector
+    std::vector<std::pair<char, unsigned>> frequencies = huffman.getFrequencies();
+
+    // Print the frequencies vector
+    std::cout << "Frequencies:\n";
+    for (const auto& pair : frequencies) {
+        std::cout << "Character: " << pair.first << " Frequency: " << pair.second << std::endl;
+    }
+
     huffman.getFilaPriorizada().ImprimirFilaPriorizada();
 
     // Create the Huffman tree
@@ -28,7 +37,9 @@ int main() {
         std::cout << "Character: " << pair.first << ", Code: " << pair.second << std::endl;
     }
 
-    huffman.salvarCodificacao();
+    //huffman.salvarCodificacao();
+
+    huffman.escreverFrequenciasNoArquivo();
 
     return 0;
 }

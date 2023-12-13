@@ -40,6 +40,23 @@ void Huffman::construirFilaPriorizada() {
     }
 }
 
+void Huffman::criarMapFrequencias() {
+    FilaPriorizada copia = filaPriorizada;
+
+    // Clear the existing frequencies map
+    frequencias.clear();
+
+    // Iterate through each node in the priority queue
+    while (!copia.isEmpty()) {
+        NoHuffman* node = copia.Retirar();
+        char info = node->getInfo();
+        unsigned freq = node->getFrequencia();
+
+        // Add the node information and frequency to the vector
+        frequencias.emplace_back(info, freq);
+    }
+}
+
 void Huffman::criarFilaPriorizada() {
     // Open the input file in binary mode
     std::ifstream input_file(in_file_name, std::ios::binary);
@@ -54,6 +71,11 @@ void Huffman::criarFilaPriorizada() {
 
     // Build the priority queue using the counted frequencies
     construirFilaPriorizada();
+
+    criarMapFrequencias();
+
+    // Close the input file
+    input_file.close();
 }
 
 void Huffman::criarArvoreBinaria() {
@@ -143,4 +165,47 @@ CodigoHuffman Huffman::getCodigoHuffman() const {
 
 NoHuffman* Huffman::getNodeArray() const {
     return *node_array;
+}
+
+// Add the following public method to get the frequencies map
+std::vector<std::pair<char, unsigned>> Huffman::getFrequencies() const {
+    return frequencias;
+}
+
+void Huffman::escreverFrequenciasNoArquivo() {
+
+    std::ofstream output_file(out_file_name, std::ios::binary);
+
+    if (!output_file.is_open()) {
+        // Throw an exception with an error message
+        throw std::runtime_error("Error opening file");
+    }
+
+    unsigned int amout_of_frequency_pairs = frequencias.size();
+
+    output_file.write(reinterpret_cast<const char*>(&amout_of_frequency_pairs), sizeof(amout_of_frequency_pairs));
+
+    for (const auto& pair : frequencias) {
+        output_file.write(&pair.first, 1); // Write the char to the file.
+
+        // Write the unsigned to the file:
+        output_file.write(reinterpret_cast <const char*> (&pair.second),sizeof(pair.second));
+    }
+
+    output_file.close();
+}
+
+std::string Huffman::getExtensionFile() const{
+    size_t ultimoPonto = in_file_name.find_last_of('.');
+    std::string extension = in_file_name.substr(ultimoPonto + 1);
+
+    return extension;
+}
+
+void Huffman::escreverStringNoArquivo(const std::string& str, std::ofstream& file) {
+    int str_length = str.length();
+
+    file.write(reinterpret_cast<const char*>(&str_length), sizeof(str_length));
+
+    file.write(str.c_str(), str_length);
 }
