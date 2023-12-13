@@ -192,6 +192,8 @@ void Huffman::escreverFrequenciasNoArquivo() {
         output_file.write(reinterpret_cast <const char*> (&pair.second),sizeof(pair.second));
     }
 
+    escreverExtensaoNoArquivo(output_file, getExtensionFile());
+
     output_file.close();
 }
 
@@ -208,4 +210,13 @@ void Huffman::escreverStringNoArquivo(const std::string& str, std::ofstream& fil
     file.write(reinterpret_cast<const char*>(&str_length), sizeof(str_length));
 
     file.write(str.c_str(), str_length);
+}
+
+void Huffman::escreverExtensaoNoArquivo(std::ofstream& file, std::string extension) {
+    int integer = 14;
+
+    // This will be replaced by the amount of redundant bits:
+    file.write(reinterpret_cast<const char*>(&integer), sizeof(integer));
+
+    escreverStringNoArquivo(extension, file);
 }

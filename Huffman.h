@@ -36,6 +36,7 @@ public:
     void calcularHuffmanCodigos();
     void escreverFrequenciasNoArquivo();
     void escreverStringNoArquivo(const std::string&, std::ofstream&);
+    void escreverExtensaoNoArquivo(std::ofstream&, std::string);
     void salvarCodificacao();
     void getFrequencias();
     void salvarDecodificacao();
