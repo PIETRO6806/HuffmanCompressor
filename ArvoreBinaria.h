@@ -21,6 +21,10 @@ private:
 
     void PrintTreeHelper(const NoHuffman* node, int depth) const;
 
+    // Add a helper method to get Huffman codes
+    void getCodigoHuffmanHelper(const NoHuffman* node, char character, std::string currentCode, std::string& huffmanCode) const;
+
+
 public:
     ArvoreBinaria();
     ArvoreBinaria(FilaPriorizada& fila);
@@ -30,6 +34,9 @@ public:
     ~ArvoreBinaria();
 
     void ImprimirArvore() const;
+
+    // Add the method to get Huffman codes
+    std::string getCodigoHuffman(char character) const;
 };
 
 

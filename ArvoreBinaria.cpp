@@ -75,3 +75,23 @@ void ArvoreBinaria::ImprimirArvore() const {
     PrintTreeHelper(raiz, 0);
     std::cout << std::endl;
 }
+
+// Helper method to get Huffman codes
+void ArvoreBinaria::getCodigoHuffmanHelper(const NoHuffman* node, char character, std::string currentCode, std::string& huffmanCode) const {
+    if (node != nullptr) {
+        if (node->getInfo() == character && node->getEsquerda() == nullptr && node->getDireita() == nullptr) {
+            huffmanCode = currentCode;
+            return;
+        }
+
+        getCodigoHuffmanHelper(node->getEsquerda(), character, currentCode + "0", huffmanCode);
+        getCodigoHuffmanHelper(node->getDireita(), character, currentCode + "1", huffmanCode);
+    }
+}
+
+// Method to get Huffman codes
+std::string ArvoreBinaria::getCodigoHuffman(char character) const {
+    std::string huffmanCode;
+    getCodigoHuffmanHelper(raiz, character, "", huffmanCode);
+    return huffmanCode;
+}

@@ -22,17 +22,20 @@ protected:
     void create_node_array();
     void contarFrequencias(std::ifstream& file);
     void construirFilaPriorizada();
-    int binary_to_decimal(std::string&);															//convert a 8-bit 0/1 string of binary code to a decimal integer
-    std::string decimal_to_binary(int);
+    //int binary_to_decimal(const std::string&);															//convert a 8-bit 0/1 string of binary code to a decimal integer
+    //std::string decimal_to_binary(int);
 
 public:
     Huffman(std::string, std::string);
     void criarFilaPriorizada();
     void criarArvoreBinaria();
     void calcularHuffmanCodigos();
-    void salvarCodigos();
+    void salvarCodificacao();
+    void salvarDecodificacao();
+    void recriarArvoreBinaria();
     FilaPriorizada getFilaPriorizada() const;
     ArvoreBinaria getArvoreBinaria() const;
+    CodigoHuffman getCodigoHuffman() const;
 };
 
 
