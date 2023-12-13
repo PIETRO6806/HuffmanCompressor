@@ -74,17 +74,8 @@ ArvoreBinaria Huffman::getArvoreBinaria() const {
     return arvoreBinaria;
 }
 
-// Update the following method in Huffman.cpp
-
+// Implement the method in your Huffman.cpp file
 void Huffman::salvarCodificacao() {
-    // Open the input file in binary mode
-    std::ifstream input_file(in_file_name, std::ios::binary);
-
-    if (!input_file.is_open()) {
-        // Handle the case where the file cannot be opened
-        throw std::runtime_error("Unable to open input file");
-    }
-
     // Open the output file in binary mode
     std::ofstream output_file(out_file_name, std::ios::binary);
 
@@ -93,41 +84,50 @@ void Huffman::salvarCodificacao() {
         throw std::runtime_error("Unable to create output file");
     }
 
-    // Write the number of unique characters to the output file
-    int num_unique_chars = filaPriorizada.getQuantosNos();
-    output_file.write(reinterpret_cast<const char*>(&num_unique_chars), sizeof(int));
-
     // Write the Huffman codes to the output file
-    for (NoHuffman* node : filaPriorizada.Listar()) {
-        char current_char = node->getInfo();
-        int code_length = static_cast<int>(node->getCodigo().length());
+    const auto& huffmanCodes = codigoHuffman.getHuffmanCodes();
+    int numUniqueChars = huffmanCodes.size();
 
-        output_file.write(&current_char, sizeof(char));
-        output_file.write(reinterpret_cast<const char*>(&code_length), sizeof(int));
-        output_file.write(node->getCodigo().c_str(), code_length);
+    output_file.write(reinterpret_cast<const char*>(&numUniqueChars), sizeof(int));
+
+    for (const auto& codePair : huffmanCodes) {
+        char currentChar = codePair.first;
+        const std::string& huffmanCode = codePair.second;
+        int codeLength = huffmanCode.length();
+
+        output_file.write(&currentChar, sizeof(char));
+        output_file.write(reinterpret_cast<const char*>(&codeLength), sizeof(int));
+        output_file.write(huffmanCode.c_str(), codeLength);
     }
 
     // Read the input file and write the Huffman-encoded data to the output file
+    std::ifstream input_file(in_file_name, std::ios::binary);
+
+    if (!input_file.is_open()) {
+        // Handle the case where the input file cannot be opened
+        throw std::runtime_error("Unable to open input file");
+    }
+
     char ch;
-    std::string encoded_data;
+    std::string encodedData;
     while (input_file.get(ch)) {
         // Get the Huffman code for the current character
-        std::string huffman_code = arvoreBinaria.getCodigoHuffman(ch);
+        std::string huffmanCode = arvoreBinaria.getCodigoHuffman(ch);
 
         // Append the Huffman code to the encoded data
-        encoded_data += huffman_code;
+        encodedData += huffmanCode;
 
         // Write the encoded data to the output file whenever it forms a byte
-        while (encoded_data.length() >= 8) {
-            std::bitset<8> byte(encoded_data.substr(0, 8));
+        while (encodedData.length() >= 8) {
+            std::bitset<8> byte(encodedData.substr(0, 8));
             output_file.write(reinterpret_cast<const char*>(&byte), sizeof(char));
-            encoded_data = encoded_data.substr(8);
+            encodedData = encodedData.substr(8);
         }
     }
 
     // Write the remaining bits if any
-    if (!encoded_data.empty()) {
-        std::bitset<8> byte(encoded_data + std::string(8 - encoded_data.length(), '0'));
+    if (!encodedData.empty()) {
+        std::bitset<8> byte(encodedData + std::string(8 - encodedData.length(), '0'));
         output_file.write(reinterpret_cast<const char*>(&byte), sizeof(char));
     }
 
@@ -136,6 +136,11 @@ void Huffman::salvarCodificacao() {
     output_file.close();
 }
 
+
 CodigoHuffman Huffman::getCodigoHuffman() const {
     return codigoHuffman;
+}
+
+NoHuffman* Huffman::getNodeArray() const {
+    return *node_array;
 }

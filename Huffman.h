@@ -33,10 +33,12 @@ public:
     void salvarCodificacao();
     void salvarDecodificacao();
     void recriarArvoreBinaria();
+    NoHuffman* getNodeArray() const;
     FilaPriorizada getFilaPriorizada() const;
     ArvoreBinaria getArvoreBinaria() const;
     CodigoHuffman getCodigoHuffman() const;
-};
+
+    };
 
 
 #endif //HUFFMANCOMPRESSOR_HUFFMAN_H

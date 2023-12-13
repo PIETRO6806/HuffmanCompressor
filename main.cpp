@@ -28,8 +28,7 @@ int main() {
         std::cout << "Character: " << pair.first << ", Code: " << pair.second << std::endl;
     }
 
-    //huffman.salvarCodificacao();
-
+    huffman.salvarCodificacao();
 
     return 0;
 }
