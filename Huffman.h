@@ -17,7 +17,6 @@ protected:
     std::vector<std::pair<char, unsigned>> frequencias;
     std::vector<char> buffer;
     NoHuffman* node_array[256];
-    std::fstream in_file, out_file;
     std::string in_file_name, out_file_name;
     FilaPriorizada filaPriorizada;
     ArvoreBinaria arvoreBinaria;
@@ -34,7 +33,7 @@ public:
     void criarFilaPriorizada();
     void criarArvoreBinaria();
     void calcularHuffmanCodigos();
-    void escreverFrequenciasNoArquivo();
+    void escreverFrequenciasNoArquivo(std::ofstream&);
     void escreverStringNoArquivo(const std::string&, std::ofstream&);
     void escreverExtensaoNoArquivo(std::ofstream&, std::string);
     void salvarCodificacao();

@@ -106,22 +106,6 @@ void Huffman::salvarCodificacao() {
         throw std::runtime_error("Unable to create output file");
     }
 
-    // Write the Huffman codes to the output file
-    const auto& huffmanCodes = codigoHuffman.getHuffmanCodes();
-    int numUniqueChars = huffmanCodes.size();
-
-    output_file.write(reinterpret_cast<const char*>(&numUniqueChars), sizeof(int));
-
-    for (const auto& codePair : huffmanCodes) {
-        char currentChar = codePair.first;
-        const std::string& huffmanCode = codePair.second;
-        int codeLength = huffmanCode.length();
-
-        output_file.write(&currentChar, sizeof(char));
-        output_file.write(reinterpret_cast<const char*>(&codeLength), sizeof(int));
-        output_file.write(huffmanCode.c_str(), codeLength);
-    }
-
     // Read the input file and write the Huffman-encoded data to the output file
     std::ifstream input_file(in_file_name, std::ios::binary);
 
@@ -130,28 +114,9 @@ void Huffman::salvarCodificacao() {
         throw std::runtime_error("Unable to open input file");
     }
 
-    char ch;
-    std::string encodedData;
-    while (input_file.get(ch)) {
-        // Get the Huffman code for the current character
-        std::string huffmanCode = arvoreBinaria.getCodigoHuffman(ch);
+    escreverFrequenciasNoArquivo(output_file);
 
-        // Append the Huffman code to the encoded data
-        encodedData += huffmanCode;
-
-        // Write the encoded data to the output file whenever it forms a byte
-        while (encodedData.length() >= 8) {
-            std::bitset<8> byte(encodedData.substr(0, 8));
-            output_file.write(reinterpret_cast<const char*>(&byte), sizeof(char));
-            encodedData = encodedData.substr(8);
-        }
-    }
-
-    // Write the remaining bits if any
-    if (!encodedData.empty()) {
-        std::bitset<8> byte(encodedData + std::string(8 - encodedData.length(), '0'));
-        output_file.write(reinterpret_cast<const char*>(&byte), sizeof(char));
-    }
+    escreverExtensaoNoArquivo(output_file, getExtensionFile());
 
     // Close the files
     input_file.close();
@@ -172,18 +137,11 @@ std::vector<std::pair<char, unsigned>> Huffman::getFrequencies() const {
     return frequencias;
 }
 
-void Huffman::escreverFrequenciasNoArquivo() {
+void Huffman::escreverFrequenciasNoArquivo(std::ofstream& output_file) {
 
-    std::ofstream output_file(out_file_name, std::ios::binary);
+    unsigned int qtosCaracteresDiferentes = frequencias.size();
 
-    if (!output_file.is_open()) {
-        // Throw an exception with an error message
-        throw std::runtime_error("Error opening file");
-    }
-
-    unsigned int amout_of_frequency_pairs = frequencias.size();
-
-    output_file.write(reinterpret_cast<const char*>(&amout_of_frequency_pairs), sizeof(amout_of_frequency_pairs));
+    output_file.write(reinterpret_cast<const char*>(&qtosCaracteresDiferentes), sizeof(qtosCaracteresDiferentes));
 
     for (const auto& pair : frequencias) {
         output_file.write(&pair.first, 1); // Write the char to the file.
@@ -192,9 +150,6 @@ void Huffman::escreverFrequenciasNoArquivo() {
         output_file.write(reinterpret_cast <const char*> (&pair.second),sizeof(pair.second));
     }
 
-    escreverExtensaoNoArquivo(output_file, getExtensionFile());
-
-    output_file.close();
 }
 
 std::string Huffman::getExtensionFile() const{
