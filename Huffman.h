@@ -12,6 +12,8 @@
 #include <fstream>
 #include <unordered_map>
 
+constexpr auto BYTE_SIZE = 8;
+
 class Huffman {
 protected:
     std::vector<std::pair<char, unsigned>> frequencias;
@@ -22,9 +24,10 @@ protected:
     ArvoreBinaria arvoreBinaria;
     CodigoHuffman codigoHuffman;
     void create_node_array();
-    void contarFrequencias(std::ifstream& file);
+    void contarFrequencias();
     void construirFilaPriorizada();
     void criarMapFrequencias();
+    void anexarBitNoArquivo(std::ofstream&, char, char&, int&);
         //int binary_to_decimal(const std::string&);															//convert a 8-bit 0/1 string of binary code to a decimal integer
     //std::string decimal_to_binary(int);
 
@@ -36,6 +39,8 @@ public:
     void escreverFrequenciasNoArquivo(std::ofstream&);
     void escreverStringNoArquivo(const std::string&, std::ofstream&);
     void escreverExtensaoNoArquivo(std::ofstream&, std::string);
+    void escreverBitsNoArquivo(std::ofstream&, const std::string&);
+    std::string converterTextoEmBitsString(const std::vector<char>&, const std::map<char, std::string>&);
     void salvarCodificacao();
     void getFrequencias();
     void salvarDecodificacao();

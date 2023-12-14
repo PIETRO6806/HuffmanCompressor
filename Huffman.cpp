@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <bitset>
+#include <iostream>
 #include "Huffman.h"
 
 void Huffman::create_node_array()
@@ -24,10 +25,8 @@ Huffman::Huffman(std::string in, std::string out)
     create_node_array();
 }
 
-void Huffman::contarFrequencias(std::ifstream& file) {
-    char ch;
-    while (file.get(ch)) {
-        // Increment the frequency of the character
+void Huffman::contarFrequencias() {
+    for (char ch : buffer) {
         node_array[static_cast<unsigned char>(ch)]->setFrequencia(node_array[static_cast<unsigned char>(ch)]->getFrequencia() + 1);
     }
 }
@@ -66,8 +65,13 @@ void Huffman::criarFilaPriorizada() {
         throw std::runtime_error("Unable to open input file");
     }
 
+    char ch;
+    while (input_file.get(ch)) {
+        buffer.push_back(ch); // Add each character to the buffer
+    }
+
     // Count frequencies of each character in the file
-    contarFrequencias(input_file);
+    contarFrequencias();
 
     // Build the priority queue using the counted frequencies
     construirFilaPriorizada();
@@ -118,6 +122,10 @@ void Huffman::salvarCodificacao() {
 
     escreverExtensaoNoArquivo(output_file, getExtensionFile());
 
+    std::string textoEmBits = converterTextoEmBitsString(buffer, getCodigoHuffman().getHuffmanCodes());
+
+    escreverBitsNoArquivo(output_file, textoEmBits);
+
     // Close the files
     input_file.close();
     output_file.close();
@@ -138,6 +146,11 @@ std::vector<std::pair<char, unsigned>> Huffman::getFrequencies() const {
 }
 
 void Huffman::escreverFrequenciasNoArquivo(std::ofstream& output_file) {
+
+    if (!output_file.is_open()) {
+        // Throw an exception with an error message
+        throw std::runtime_error("Error opening file");
+    }
 
     unsigned int qtosCaracteresDiferentes = frequencias.size();
 
@@ -174,4 +187,60 @@ void Huffman::escreverExtensaoNoArquivo(std::ofstream& file, std::string extensi
     file.write(reinterpret_cast<const char*>(&integer), sizeof(integer));
 
     escreverStringNoArquivo(extension, file);
+}
+
+void Huffman::escreverBitsNoArquivo(std::ofstream& output_file, const std::string& bits){
+    if (!output_file.is_open()) {
+        // Throw an exception with an error message
+        throw std::runtime_error("Error opening file");
+    }
+
+    char current_byte = 0; // Current byte being filled with bits.
+    int  bit_count = 0; // Number of bits in the current byte.
+
+    for (char bit : bits) {
+        anexarBitNoArquivo(output_file, bit, current_byte, bit_count);
+    }
+
+    // If there are remaining bits in the buffer, write them to the file:
+    if (bit_count > 0) {
+        current_byte <<= (BYTE_SIZE - bit_count);
+        output_file.write(&current_byte, 1);
+    }
+
+    int redundant_bits = BYTE_SIZE - bit_count; // Keep track of the amount of redundant bits.
+
+    // Write the amount of redundant bits to the first line of the file
+    output_file.seekp(0, std::ios::beg);
+    output_file.write(reinterpret_cast<const char*>(&redundant_bits), sizeof(redundant_bits));
+}
+
+void Huffman::anexarBitNoArquivo(std::ofstream& file, char bit, char& current_byte, int& bit_count) {
+    if (bit != '0' && bit != '1') {
+        // Throw an exception with an error message
+        throw std::runtime_error("Invalid bit: " + bit);
+    }
+
+    current_byte = (current_byte << 1) | (bit - '0'); // Shift left by 1 bit to make room for the new bit and add the new bit to the buffer.
+
+    bit_count++; // Increment the number of bits in the buffer.
+
+    // If the buffer is full, write the byte to the file:
+    if (bit_count == BYTE_SIZE) {
+        file.write(&current_byte, 1); // Write the byte to the file.
+        current_byte = 0;
+        bit_count = 0;
+    }
+}
+
+
+// Turns the text into it's corresponding Huffman codes:
+std::string Huffman::converterTextoEmBitsString(const std::vector<char>& buffer, const std::map<char, std::string>& codes) {
+    std::string bits_string;
+
+    for (char c : buffer) {
+        bits_string += codes.at(c);
+    }
+
+    return bits_string;
 }

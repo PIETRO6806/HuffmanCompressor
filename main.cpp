@@ -3,39 +3,39 @@
 #include "Huffman.h"
 
 int main() {
-    Huffman huffman(R"(C:\Users\Pietro\Desktop\HuffmanCompressor\txt.txt)", R"(C:\Users\Pietro\Desktop\HuffmanCompressor\txt2.txt)");
+    Huffman huffman(R"(C:\Users\Pietro\Desktop\HuffmanCompressor\exe.exe)", R"(C:\Users\Pietro\Desktop\HuffmanCompressor\exe.pietro)");
 
     // Create the priority queue
     huffman.criarFilaPriorizada();
 
     // Get the frequencies vector
-    std::vector<std::pair<char, unsigned>> frequencies = huffman.getFrequencies();
+    //std::vector<std::pair<char, unsigned>> frequencies = huffman.getFrequencies();
 
     // Print the frequencies vector
-    std::cout << "Frequencies:\n";
+    /*std::cout << "Frequencies:\n";
     for (const auto& pair : frequencies) {
         std::cout << "Character: " << pair.first << " Frequency: " << pair.second << std::endl;
-    }
+    }*/
 
-    huffman.getFilaPriorizada().ImprimirFilaPriorizada();
+    //huffman.getFilaPriorizada().ImprimirFilaPriorizada();
 
     // Create the Huffman tree
     huffman.criarArvoreBinaria();
 
     // Print the Huffman tree
-    huffman.getArvoreBinaria().ImprimirArvore();
+    //huffman.getArvoreBinaria().ImprimirArvore();
 
 
     // Calculate Huffman codes
     huffman.calcularHuffmanCodigos();
 
     // Access the Huffman codes
-    std::map<char, std::string> huffmanCodes = huffman.getCodigoHuffman().getHuffmanCodes();
+    /*std::map<char, std::string> huffmanCodes = huffman.getCodigoHuffman().getHuffmanCodes();
 
     // Print the codes
     for (const auto& pair : huffmanCodes) {
         std::cout << "Character: " << pair.first << ", Code: " << pair.second << std::endl;
-    }
+    }*/
 
     huffman.salvarCodificacao();
 
