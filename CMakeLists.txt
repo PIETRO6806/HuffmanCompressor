@@ -3,7 +3,7 @@ project(HuffmanCompressor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(HuffmanCompressor main.cpp
+add_executable(HuffmanCompressor CodificacaoHuffman.cpp
         NoHuffman.h
         NoHuffman.cpp
         FilaPriorizada.h
@@ -13,4 +13,7 @@ add_executable(HuffmanCompressor main.cpp
         CodigoHuffman.h
         CodigoHuffman.cpp
         Huffman.h
-        Huffman.cpp)
+        Huffman.cpp
+        DecodificacaoHuffman.cpp
+
+)

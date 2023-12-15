@@ -32,17 +32,20 @@ public:
     // Copy constructor
     FilaPriorizada(const FilaPriorizada& other);
 
-    // Assignment operator
-    FilaPriorizada& operator=(const FilaPriorizada& other);
-
+    //Métodos essenciais
     int getQuantosNos() const;
-    std::list<NoHuffman*> Listar() const;
-
     void Enfileirar(const NoHuffman&);
     NoHuffman* Retirar();
     bool isEmpty() const;
+
+    // Assignment operator
+    FilaPriorizada& operator=(const FilaPriorizada& other);
+
+    //Testes
+    std::list<NoHuffman*> Listar() const;
     void ImprimirFilaPriorizada() const;
 
+    //Destructor
     ~FilaPriorizada();
 };
 

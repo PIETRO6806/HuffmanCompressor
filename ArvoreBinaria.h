@@ -26,17 +26,20 @@ private:
 
 
 public:
+    //Constructors
     ArvoreBinaria();
     ArvoreBinaria(FilaPriorizada& fila);
 
     NoHuffman* getRaiz() const;
 
-    ~ArvoreBinaria();
-
+    //Testes
     void ImprimirArvore() const;
 
     // Add the method to get Huffman codes
     std::string getCodigoHuffman(char character) const;
+
+    //Destructor
+    ~ArvoreBinaria();
 };
 
 

@@ -49,8 +49,8 @@ cmake_ninja_workdir = C$:/Users/Pietro/Desktop/HuffmanCompressor/cmake-build-deb
 
 build cmake_object_order_depends_target_HuffmanCompressor: phony || CMakeFiles/HuffmanCompressor.dir
 
-build CMakeFiles/HuffmanCompressor.dir/main.cpp.obj: CXX_COMPILER__HuffmanCompressor_unscanned_Debug C$:/Users/Pietro/Desktop/HuffmanCompressor/main.cpp || cmake_object_order_depends_target_HuffmanCompressor
-  DEP_FILE = CMakeFiles\HuffmanCompressor.dir\main.cpp.obj.d
+build CMakeFiles/HuffmanCompressor.dir/CodificacaoHuffman.cpp.obj: CXX_COMPILER__HuffmanCompressor_unscanned_Debug C$:/Users/Pietro/Desktop/HuffmanCompressor/CodificacaoHuffman.cpp || cmake_object_order_depends_target_HuffmanCompressor
+  DEP_FILE = CMakeFiles\HuffmanCompressor.dir\CodificacaoHuffman.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\HuffmanCompressor.dir
   OBJECT_FILE_DIR = CMakeFiles\HuffmanCompressor.dir
@@ -85,6 +85,12 @@ build CMakeFiles/HuffmanCompressor.dir/Huffman.cpp.obj: CXX_COMPILER__HuffmanCom
   OBJECT_DIR = CMakeFiles\HuffmanCompressor.dir
   OBJECT_FILE_DIR = CMakeFiles\HuffmanCompressor.dir
 
+build CMakeFiles/HuffmanCompressor.dir/DecodificacaoHuffman.cpp.obj: CXX_COMPILER__HuffmanCompressor_unscanned_Debug C$:/Users/Pietro/Desktop/HuffmanCompressor/DecodificacaoHuffman.cpp || cmake_object_order_depends_target_HuffmanCompressor
+  DEP_FILE = CMakeFiles\HuffmanCompressor.dir\DecodificacaoHuffman.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\HuffmanCompressor.dir
+  OBJECT_FILE_DIR = CMakeFiles\HuffmanCompressor.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target HuffmanCompressor
@@ -93,7 +99,7 @@ build CMakeFiles/HuffmanCompressor.dir/Huffman.cpp.obj: CXX_COMPILER__HuffmanCom
 #############################################
 # Link the executable HuffmanCompressor.exe
 
-build HuffmanCompressor.exe: CXX_EXECUTABLE_LINKER__HuffmanCompressor_Debug CMakeFiles/HuffmanCompressor.dir/main.cpp.obj CMakeFiles/HuffmanCompressor.dir/NoHuffman.cpp.obj CMakeFiles/HuffmanCompressor.dir/FilaPriorizada.cpp.obj CMakeFiles/HuffmanCompressor.dir/ArvoreBinaria.cpp.obj CMakeFiles/HuffmanCompressor.dir/CodigoHuffman.cpp.obj CMakeFiles/HuffmanCompressor.dir/Huffman.cpp.obj
+build HuffmanCompressor.exe: CXX_EXECUTABLE_LINKER__HuffmanCompressor_Debug CMakeFiles/HuffmanCompressor.dir/CodificacaoHuffman.cpp.obj CMakeFiles/HuffmanCompressor.dir/NoHuffman.cpp.obj CMakeFiles/HuffmanCompressor.dir/FilaPriorizada.cpp.obj CMakeFiles/HuffmanCompressor.dir/ArvoreBinaria.cpp.obj CMakeFiles/HuffmanCompressor.dir/CodigoHuffman.cpp.obj CMakeFiles/HuffmanCompressor.dir/Huffman.cpp.obj CMakeFiles/HuffmanCompressor.dir/DecodificacaoHuffman.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\HuffmanCompressor.dir

@@ -3,7 +3,7 @@
 #include "Huffman.h"
 
 int main() {
-    Huffman huffman(R"(C:\Users\Pietro\Desktop\HuffmanCompressor\exe.exe)", R"(C:\Users\Pietro\Desktop\HuffmanCompressor\exe.pietro)");
+    Huffman huffman(R"(C:\Users\Pietro\Desktop\testes\Bloxstrap.exe)", R"(C:\Users\Pietro\Desktop\testes\Bloxstrap.pietro)");
 
     // Create the priority queue
     huffman.criarFilaPriorizada();

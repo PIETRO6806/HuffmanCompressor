@@ -30,10 +30,6 @@ NoHuffman* FilaPriorizada::Retirar() {
         quantosNos--;
         return topNode;
     }
-
-    // Handle the case when the priority queue is empty.
-    // You can throw an exception or return a special value.
-    // For now, let's throw an exception.
     throw std::out_of_range("Priority queue is empty");
 }
 
